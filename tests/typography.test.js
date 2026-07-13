@@ -24,14 +24,16 @@ test('style.css applies the heading font to headings and title elements', () => 
   assert.ok(headingRuleMatch[0].includes('var(--font-heading)'));
 });
 
-test('style.css defines the amber accent palette', () => {
+test('style.css defines the logo-derived blue/cyan accent palette', () => {
   const rootMatch = css.match(/:root\s*\{[^}]*\}/);
   assert.ok(rootMatch, ':root block not found');
-  assert.ok(rootMatch[0].includes('#ffb454'));
+  assert.ok(rootMatch[0].includes('#0dc0d2'));
   assert.ok(rootMatch[0].includes('--accent-dim:'));
 });
 
-test('style.css has no leftover references to the old green accent color', () => {
+test('style.css has no leftover references to the old green or amber accent colors', () => {
   assert.ok(!css.includes('#00e6a8'));
   assert.ok(!css.includes('rgba(0, 230, 168'));
+  assert.ok(!css.includes('#ffb454'));
+  assert.ok(!css.includes('rgba(255, 180, 84'));
 });
