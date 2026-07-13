@@ -359,6 +359,8 @@ h1, h2, h3,
 
 .project-card__image {
   width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   display: block;
 }
 
