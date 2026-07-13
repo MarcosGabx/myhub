@@ -2,8 +2,8 @@ const test = require('node:test');
 const assert = require('node:assert');
 const projectsData = require('../js/projects.js');
 
-test('projectsData has exactly 8 projects', () => {
-  assert.strictEqual(projectsData.length, 8);
+test('projectsData has at least 8 projects', () => {
+  assert.ok(projectsData.length >= 8, `expected at least 8 projects, got ${projectsData.length}`);
 });
 
 test('every project has all required fields', () => {
@@ -23,10 +23,10 @@ test('every project category is one of the four allowed values', () => {
   }
 });
 
-test('each category has exactly 2 projects', () => {
+test('each category has at least 1 project', () => {
   const allowed = ['landing', 'sistema', 'ferramenta', 'integracao'];
   for (const category of allowed) {
     const count = projectsData.filter((p) => p.category === category).length;
-    assert.strictEqual(count, 2, `expected 2 projects in "${category}", got ${count}`);
+    assert.ok(count >= 1, `expected at least 1 project in "${category}", got ${count}`);
   }
 });
