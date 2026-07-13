@@ -3,12 +3,497 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marcos Guedes — Desenvolvedor</title>
+  <title>Marcos Guedes — Desenvolvedor Full Stack</title>
   <meta name="description" content="Portfólio de Marcos Guedes: landing pages, sistemas, ferramentas de gerenciamento e integrações.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* =========================================
+       VARIÁVEIS & RESET
+       ========================================= */
+    :root {
+      --bg-dark: #000000;
+      --bg-darker: #000000;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #0ea5e9;
+      --primary-hover: #0284c7;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-darker);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =========================================
+       AMBIENT LIGHTS 
+       ========================================= */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+    .orb--hero-1 { width: 40vw; height: 40vw; background: var(--primary); top: -10%; left: -10%; }
+    .orb--hero-2 { width: 30vw; height: 30vw; background: var(--accent-purple); top: 20%; right: -5%; }
+    .orb--about-1 { width: 35vw; height: 35vw; background: var(--accent-green); top: 50%; left: -15%; opacity: 0.1; }
+
+    /* =========================================
+       HEADER & LOGO 
+       ========================================= */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header__logo {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Luz de fundo para a logo azul destacar */
+    .header__logo::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 260%;
+      height: 280%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .header__logo-img {
+      height: 65px; /* LOGO AUMENTADA */
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+
+    .header__nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .header__nav a:not(.header__whatsapp) {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .header__nav a:not(.header__whatsapp):hover {
+      color: var(--primary);
+    }
+
+    .header__whatsapp {
+      border: 1px solid var(--primary);
+      color: var(--primary) !important;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .header__whatsapp:hover {
+      background: var(--primary);
+      color: #fff !important;
+      box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+    }
+
+    /* =========================================
+       SEÇÕES GERAIS
+       ========================================= */
+    main {
+      padding-top: 100px; 
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      position: relative;
+    }
+
+    .section__title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      text-align: center;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* =========================================
+       HERO & TERMINAL
+       ========================================= */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      padding-top: 40px;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal__titlebar {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .terminal__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .terminal__dot--red { background: #ef4444; }
+    .terminal__dot--yellow { background: #f59e0b; }
+    .terminal__dot--green { background: #10b981; }
+
+    .terminal__path {
+      margin-left: auto;
+      margin-right: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .terminal__body {
+      padding: 32px;
+      font-family: var(--font-mono);
+    }
+
+    .terminal__line {
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .terminal__prompt {
+      color: var(--accent-green);
+      margin-right: 8px;
+    }
+
+    .hero__title {
+      font-family: var(--font-sans);
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .terminal__cursor {
+      display: inline-block;
+      width: 12px;
+      height: 1em;
+      background-color: var(--primary);
+      vertical-align: middle;
+      margin-left: 8px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero__tagline {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .terminal__comment {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .terminal__btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .terminal__btn:hover {
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    /* =========================================
+       SOBRE
+       ========================================= */
+    .about__bio {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 32px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .about__stack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+      transition: transform 0.2s;
+    }
+    
+    .tag:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+
+    /* =========================================
+       PROJETOS (CARDS & FILTROS)
+       ========================================= */
+    .projects__filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover, 
+    .filter-btn--active {
+      background: rgba(14, 165, 233, 0.1);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Estrutura deduzida a partir do seu JS / Print */
+    .project-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(14, 165, 233, 0.3);
+      box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.15);
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .project-card h3 { /* Título do projeto caso tenha */
+      font-size: 1.25rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .project-card p { /* Descrição caso tenha */
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .project-card .stack { /* Linha "STACK . Tecnologias" */
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 16px;
+    }
+
+    .project-card a, 
+    .project-card .link { /* Linha "Ver projeto ->" */
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+      margin-top: auto;
+    }
+
+    .project-card a:hover,
+    .project-card .link:hover {
+      color: var(--primary-hover);
+    }
+
+    /* =========================================
+       CONTATO & FOOTER
+       ========================================= */
+    .contact {
+      text-align: center;
+      padding-bottom: 120px;
+    }
+
+    .contact__text {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+
+    .btn--primary {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    }
+
+    .btn--primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: var(--bg-dark);
+    }
+
+    /* =========================================
+       WHATSAPP FLUTUANTE
+       ========================================= */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #25D366;
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: transform 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    /* =========================================
+       RESPONSIVIDADE GERAL
+       ========================================= */
+    @media (max-width: 768px) {
+      .header__nav { display: none; }
+      .header__logo-img { height: 50px; } /* Ajuste sutil no mobile */
+      .hero__title { font-size: 2.5rem; }
+      .terminal__body { padding: 20px; }
+      .orb { display: none; }
+      .projects__grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -23,7 +508,7 @@
         <a href="#contato">Contato</a>
         <a href="https://wa.me/5538984216381?text=Ol%C3%A1%20Marcos%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!" class="header__whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </nav>
-      <button class="header__toggle" aria-label="Abrir menu" aria-expanded="false">
+      <button class="header__toggle" aria-label="Abrir menu" aria-expanded="false" style="display:none;">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -67,7 +552,6 @@
     </section>
 
     <section id="projetos" class="projects">
-      <div class="orb orb--projects-1" aria-hidden="true"></div>
       <h2 class="section__title">Projetos</h2>
       <div class="projects__filters">
         <button class="filter-btn filter-btn--active" data-category="all">Todos</button>
@@ -76,12 +560,12 @@
         <button class="filter-btn" data-category="ferramenta">Ferramentas</button>
         <button class="filter-btn" data-category="integracao">Integrações</button>
       </div>
-      <div class="projects__grid"></div>
+      <div class="projects__grid">
+        <!-- O seu JS vai injetar os cards aqui -->
+      </div>
     </section>
 
     <section id="contato" class="contact">
-      <div class="orb orb--contact-1" aria-hidden="true"></div>
-      <div class="orb orb--contact-2" aria-hidden="true"></div>
       <h2 class="section__title">Vamos conversar?</h2>
       <p class="contact__text">Tem um projeto em mente? Fale comigo diretamente pelo WhatsApp.</p>
       <a href="https://wa.me/5538984216381?text=Ol%C3%A1%20Marcos%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
