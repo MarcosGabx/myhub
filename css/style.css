@@ -1,11 +1,12 @@
 :root {
-  --bg: #0b0f14;
-  --bg-alt: #121821;
-  --text: #e6edf3;
-  --text-muted: #8b949e;
-  --accent: #00e6a8;
-  --font-heading: 'Space Grotesk', sans-serif;
-  --border: #21262d;
+  --bg: #0a0908;
+  --bg-alt: #16130f;
+  --text: #f2ece1;
+  --text-muted: #8a8175;
+  --accent: #ffb454;
+  --accent-dim: #cc8c34;
+  --font-heading: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --border: #2a2419;
   --header-height: 64px;
 }
 
@@ -59,7 +60,7 @@ h1, h2, h3,
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 230, 168, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 180, 84, 0.3);
 }
 
 .tag {
@@ -368,7 +369,7 @@ h1, h2, h3,
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(0, 230, 168, 0.35);
+  box-shadow: 0 8px 20px rgba(255, 180, 84, 0.35);
   z-index: 100;
 }
 
