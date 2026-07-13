@@ -34,8 +34,7 @@ a {
 
 h1, h2, h3,
 .hero__title,
-.section__title,
-.header__logo {
+.section__title {
   font-family: var(--font-heading);
 }
 
@@ -96,8 +95,14 @@ h1, h2, h3,
 }
 
 .header__logo {
-  font-weight: 700;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.header__logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .header__nav {
