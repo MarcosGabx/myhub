@@ -1,19 +1,19 @@
 const projectsData = [
   {
-    title: 'Landing Page — Lançamento de Produto',
+    title: 'Business Solutions — Consultoria Estratégica',
     category: 'landing',
-    description: 'Página de alta conversão para lançamento de produto, com seções de benefícios, depoimentos e chamada para ação.',
+    description: 'Landing page institucional para consultoria de gestão empresarial, apresentando o Método GIIF (Governança, Inteligência e Finanças) com foco em agendamento de diagnóstico.',
     image: 'assets/placeholder.svg',
-    link: '#',
+    link: 'https://businessolutions.com.br',
     tags: ['HTML', 'CSS', 'JavaScript'],
   },
   {
-    title: 'Landing Page — Captura de Leads',
+    title: 'Ventus Formaturas — Pacote de Landing Pages',
     category: 'landing',
-    description: 'Landing page otimizada para captura de leads via formulário integrado a serviço de e-mail marketing.',
+    description: 'Pacote de 5 landing pages para uma empresa de formaturas (convite, fotos de família, cerimonial e posicionamento de imagem com teste A/B), com formulários integrados via webhook.',
     image: 'assets/placeholder.svg',
-    link: '#',
-    tags: ['HTML', 'CSS', 'Formspree'],
+    link: 'https://ventusformaturas.com.br/posicionamento_imagem/index.html',
+    tags: ['HTML', 'Tailwind CSS', 'JavaScript'],
   },
   {
     title: 'Sistema de Gestão de Estoque',
