@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
-  <rect width="400" height="240" fill="#121821"/>
-  <rect x="1" y="1" width="398" height="238" fill="none" stroke="#21262d" stroke-width="2"/>
-  <text x="200" y="128" font-family="sans-serif" font-size="20" fill="#8b949e" text-anchor="middle">Preview do projeto</text>
+  <rect width="400" height="240" fill="#16130f"/>
+  <rect x="1" y="1" width="398" height="238" fill="none" stroke="#2a2419" stroke-width="2"/>
+  <text x="200" y="128" font-family="ui-monospace, monospace" font-size="20" fill="#8a8175" text-anchor="middle">Preview do projeto</text>
 </svg>
