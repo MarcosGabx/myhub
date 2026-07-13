@@ -26,6 +26,11 @@ test('style.css styles the project card structure produced by createProjectCard'
   assert.ok(css.includes('.project-card__title'));
 });
 
+test('style.css styles the new CAT/STACK labels on project cards', () => {
+  assert.ok(css.includes('.project-card__cat'));
+  assert.ok(css.includes('.project-card__stack'));
+});
+
 test('style.css positions the floating WhatsApp button as fixed', () => {
   const floatBlockMatch = css.match(/\.whatsapp-float\s*\{[^}]*\}/);
   assert.ok(floatBlockMatch, '.whatsapp-float rule not found');

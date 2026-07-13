@@ -23,25 +23,30 @@ test('filterProjects returns empty array when no project matches', () => {
   assert.strictEqual(result.length, 0);
 });
 
-test('createProjectCard includes title, description and tags', () => {
+test('createProjectCard includes title, description, category label and stack line', () => {
   const html = createProjectCard(sampleProjects[0]);
   assert.ok(html.includes('A'));
   assert.ok(html.includes('desc a'));
-  assert.ok(html.includes('HTML'));
+  assert.ok(html.includes('CAT · Landing Page'));
+  assert.ok(html.includes('STACK · HTML'));
   assert.ok(html.includes('data-category="landing"'));
 });
 
-test('createProjectCard includes the category icon svg', () => {
-  const html = createProjectCard(sampleProjects[0]);
-  assert.ok(html.includes('project-card__icon'));
-  assert.ok(html.includes('<svg'));
+test('createProjectCard maps each of the four categories to a distinct human-readable label', () => {
+  const categories = {
+    landing: 'Landing Page',
+    sistema: 'Sistema',
+    ferramenta: 'Ferramenta',
+    integracao: 'Integração',
+  };
+  for (const [category, label] of Object.entries(categories)) {
+    const html = createProjectCard({ ...sampleProjects[0], category });
+    assert.ok(html.includes(`CAT · ${label}`), `expected label "${label}" for category "${category}"`);
+  }
 });
 
-test('createProjectCard renders a different icon markup for each of the four categories', () => {
-  const categories = ['landing', 'sistema', 'ferramenta', 'integracao'];
-  const icons = categories.map((category) =>
-    createProjectCard({ ...sampleProjects[0], category })
-  );
-  const uniqueIcons = new Set(icons.map((html) => html.match(/<svg[\s\S]*?<\/svg>/)[0]));
-  assert.strictEqual(uniqueIcons.size, 4, 'expected 4 distinct icon markups, one per category');
+test('createProjectCard no longer renders a category icon or tag pills', () => {
+  const html = createProjectCard(sampleProjects[0]);
+  assert.ok(!html.includes('project-card__icon'));
+  assert.ok(!html.includes('project-card__tags'));
 });
