@@ -30,3 +30,18 @@ test('createProjectCard includes title, description and tags', () => {
   assert.ok(html.includes('HTML'));
   assert.ok(html.includes('data-category="landing"'));
 });
+
+test('createProjectCard includes the category icon svg', () => {
+  const html = createProjectCard(sampleProjects[0]);
+  assert.ok(html.includes('project-card__icon'));
+  assert.ok(html.includes('<svg'));
+});
+
+test('createProjectCard renders a different icon markup for each of the four categories', () => {
+  const categories = ['landing', 'sistema', 'ferramenta', 'integracao'];
+  const icons = categories.map((category) =>
+    createProjectCard({ ...sampleProjects[0], category })
+  );
+  const uniqueIcons = new Set(icons.map((html) => html.match(/<svg[\s\S]*?<\/svg>/)[0]));
+  assert.strictEqual(uniqueIcons.size, 4, 'expected 4 distinct icon markups, one per category');
+});
