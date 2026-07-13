@@ -299,6 +299,75 @@ h1, h2, h3,
   z-index: 100;
 }
 
+.hero,
+.about,
+.projects,
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__content,
+.about > *,
+.projects > *,
+.contact > * {
+  position: relative;
+  z-index: 1;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  filter: blur(80px);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb--hero-1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  right: -100px;
+}
+
+.orb--hero-2 {
+  width: 320px;
+  height: 320px;
+  bottom: -80px;
+  left: -80px;
+}
+
+.orb--about-1 {
+  width: 300px;
+  height: 300px;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orb--projects-1 {
+  width: 360px;
+  height: 360px;
+  bottom: -140px;
+  right: -100px;
+}
+
+.orb--contact-1 {
+  width: 280px;
+  height: 280px;
+  top: -80px;
+  left: -60px;
+}
+
+.orb--contact-2 {
+  width: 280px;
+  height: 280px;
+  bottom: -100px;
+  right: -60px;
+}
+
 @media (max-width: 768px) {
   .header__nav {
     position: fixed;
